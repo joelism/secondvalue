@@ -6,23 +6,125 @@
   <title>Projekt Restwert – Artikelübersicht</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+  <!-- Top bar -->
   <header class="topbar">
     <div class="topbar__left">
-      <div class="brand"><div class="brand__logo">rw</div></div>
-      <nav class="tabs">
-        <button class="tab is-active">Artikel</button>
-        <button class="tab">Kontakte</button>
-        <button class="tab">Auszahlungen</button>
-        <button class="tab">Journal</button>
+      <div class="brand">
+        <div class="brand__logo">rw</div>
+      </div>
+
+      <nav class="tabs" aria-label="Hauptnavigation">
+        <button class="tab is-active" data-route="artikel">
+          <span class="tab__dot"></span> Artikel
+        </button>
+        <button class="tab" data-route="kontakte">Kontakte</button>
+        <button class="tab" data-route="auszahlungen">Auszahlungen</button>
+        <button class="tab" data-route="journal">Journal</button>
       </nav>
     </div>
-    <div class="topbar__right">Joel Weber 🇨🇭</div>
+
+    <div class="topbar__right">
+      <div class="user">
+        <span class="user__name">Joel Weber</span>
+        <span class="user__flag" title="Deutsch (CH)">🇨🇭</span>
+      </div>
+    </div>
   </header>
+
+  <!-- Page -->
   <main class="page">
-    <h1>Artikelübersicht</h1>
-    <p>Noch keine Artikel vorhanden.</p>
+    <!-- Section header -->
+    <section class="section">
+      <div class="section__header">
+        <div class="section__title">
+          <h1>Artikelübersicht</h1>
+          <div class="hint">Übersicht aller Artikel inkl. Status, Lagerplatz und Aktionen.</div>
+        </div>
+
+        <div class="section__actions">
+          <button class="btn btn--primary" id="btnNewArticle">
+            <span class="btn__plus">+</span>
+            Neuen Artikel erfassen
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <label class="input input--search">
+          <span class="input__label">Suche</span>
+          <input id="q" type="search" placeholder="Suchen…" autocomplete="off" />
+        </label>
+
+        <label class="input">
+          <span class="input__label">Statusfilter</span>
+          <select id="status">
+            <option value="">Alle</option>
+            <option value="Erfassung">Erfassung</option>
+            <option value="Kontrolle 1">Kontrolle 1</option>
+            <option value="Kontrolle 2">Kontrolle 2</option>
+            <option value="Buchhaltung">Buchhaltung</option>
+            <option value="Versand">Versand</option>
+            <option value="Aufbereitung">Aufbereitung</option>
+            <option value="Inserieren">Inserieren</option>
+            <option value="Verkauft">Verkauft</option>
+          </select>
+        </label>
+
+        <label class="toggle">
+          <input id="archived" type="checkbox" />
+          <span class="toggle__ui" aria-hidden="true"></span>
+          <span class="toggle__text">inkl. archivierte</span>
+        </label>
+
+        <div class="filters__spacer"></div>
+
+        <button class="btn btn--ghost" id="btnCsv">
+          CSV herunterladen
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="card">
+        <div class="table-wrap" role="region" aria-label="Artikeltabelle" tabindex="0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="width: 140px;">Artikel-Nr.</th>
+                <th>Titel</th>
+                <th style="width: 260px;">Name und Ort Lieferantin</th>
+                <th style="width: 140px;">Status</th>
+                <th style="width: 160px;">Erfasst am</th>
+                <th style="width: 180px;">Lagerplatz</th>
+                <th style="width: 110px; text-align:right;">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <!-- empty state gets injected by app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card__footer">
+          <div class="muted" id="count">0 Artikel</div>
+          <div class="pager">
+            <button class="btn btn--ghost btn--sm" id="prev" disabled>‹</button>
+            <span class="pager__text" id="page">Seite 1</span>
+            <button class="btn btn--ghost btn--sm" id="next" disabled>›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder pages -->
+    <section class="placeholder" id="placeholder" hidden>
+      <h2 id="placeholderTitle">Seite</h2>
+      <p>Diese Seite ist noch nicht gebaut – du gibst mir dann Bild/Anweisungen dafür.</p>
+    </section>
   </main>
+
   <script src="app.js"></script>
 </body>
 </html>
