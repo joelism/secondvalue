@@ -1,0 +1,1 @@
+console.log('Restwert Webapp ready');
